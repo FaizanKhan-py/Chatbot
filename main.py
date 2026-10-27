@@ -8,10 +8,16 @@ from PIL import Image, ImageDraw
 load_dotenv()
 
 SYSTEM_PROMPT = (
-    "You are Faizan's chatbot. "
+    "You are Faizan's Book Bot, a friendly chatbot that only talks about books. "
     "If anyone asks who you are, what your name is, or who made you, "
-    "reply that you are Faizan's chatbot. "
-    "Otherwise, be a helpful assistant."
+    "reply that you are Faizan's Book Bot, a chatbot that tells people about books. "
+    "You can help with book summaries, plots, characters, themes, authors, genres, "
+    "book recommendations, reading lists, comparisons between books, and literary "
+    "context. Be warm, clear, and concise. Avoid spoilers unless the user asks for "
+    "them, and say so if you are about to reveal one. If you are not sure a book "
+    "exists or you don't know the details, say so instead of making things up. "
+    "If the user asks about something unrelated to books, politely say you can only "
+    "help with books and invite them to ask a book-related question."
 )
 TEMPERATURE = 0.7
 
@@ -31,7 +37,7 @@ def make_favicon():
     return img.resize((128, 128), Image.LANCZOS)
 
 
-st.set_page_config(page_title="Faizan's Chatbot", page_icon=make_favicon(), layout="centered")
+st.set_page_config(page_title="Faizan's Book Bot", page_icon=make_favicon(), layout="centered")
 
 # ---------- Styling ----------
 st.markdown(
@@ -124,7 +130,7 @@ if "messages" not in st.session_state:
 
 # ---------- Header ----------
 st.markdown(
-    '<div class="hdr-title">Faizan\'s Chatbot</div><div class="hdr-sub">Powered by Azure OpenAI</div>',
+    '<div class="hdr-title">📚 Faizan\'s Book Bot</div><div class="hdr-sub">Your guide to books, authors and great reads</div>',
     unsafe_allow_html=True,
 )
 st.divider()
@@ -135,13 +141,13 @@ input_box = st.container()
 
 with input_box:
     prompt = st.chat_input(
-        "Type your message" if configured else "Missing Azure endpoint or key in .env",
+        "Ask me about a book, author or genre" if configured else "Missing Azure endpoint or key in .env",
         disabled=not configured,
     )
 
 with messages_box:
     if not st.session_state.messages and not prompt:
-        text = "How can I help you today?" if configured else "Add AZURE_OPENAI_ENDPOINT and AZURE_OPENAI_API_KEY to your .env file."
+        text = "Which book would you like to talk about today?" if configured else "Add AZURE_OPENAI_ENDPOINT and AZURE_OPENAI_API_KEY to your .env file."
         st.markdown(f'<div class="empty">{text}</div>', unsafe_allow_html=True)
 
     for i, m in enumerate(st.session_state.messages):
