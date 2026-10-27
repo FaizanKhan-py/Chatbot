@@ -7,7 +7,12 @@ from PIL import Image, ImageDraw
 
 load_dotenv()
 
-SYSTEM_PROMPT = "You are a helpful assistant."
+SYSTEM_PROMPT = (
+    "You are Faizan's chatbot. "
+    "If anyone asks who you are, what your name is, or who made you, "
+    "reply that you are Faizan's chatbot. "
+    "Otherwise, be a helpful assistant."
+)
 TEMPERATURE = 0.7
 
 
@@ -26,7 +31,7 @@ def make_favicon():
     return img.resize((128, 128), Image.LANCZOS)
 
 
-st.set_page_config(page_title="Assistant", page_icon=make_favicon(), layout="centered")
+st.set_page_config(page_title="Faizan's Chatbot", page_icon=make_favicon(), layout="centered")
 
 # ---------- Styling ----------
 st.markdown(
@@ -119,7 +124,7 @@ if "messages" not in st.session_state:
 
 # ---------- Header ----------
 st.markdown(
-    '<div class="hdr-title">Assistant</div><div class="hdr-sub">Powered by Azure OpenAI</div>',
+    '<div class="hdr-title">Faizan\'s Chatbot</div><div class="hdr-sub">Powered by Azure OpenAI</div>',
     unsafe_allow_html=True,
 )
 st.divider()
